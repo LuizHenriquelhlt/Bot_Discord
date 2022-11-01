@@ -1,0 +1,168 @@
+import datetime
+import random
+
+import discord
+import requests
+from decouple import Config
+from discord.ext import commands, tasks
+from discord.ui import Button, View
+
+min = 1
+max = 20
+
+intents = discord.Intents.all()
+
+bot = commands.Bot(command_prefix="!", intents=intents, case_insensitive=True)
+
+@bot.event
+async def on_ready():
+
+    print(f"Benezinho está online!")
+
+@bot.command(name="Ficha")
+async def send_token(ctx):
+    url_image = "https://cdn.discordapp.com/attachments/568422237686726688/1036664977337090139/WhatsApp_Image_2022-07-23_at_16.56.52.jpeg"
+    embed = discord.Embed(
+        title = "Bernado Oliveira",
+        description = "Acadêmico",
+        color = 0x00FF00,
+    )
+    embed.add_field(name = "Classe", value = "Combatente")
+    
+    embed.add_field(name = 'Token', value=url_image, inline=False)
+    
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def Bene(ctx):
+    button = discord.ui.Button(label="Intelecto!", style=discord.ButtonStyle.green)
+    button1 = discord.ui.Button(label="Força!", style=discord.ButtonStyle.green)
+    button2 = discord.ui.Button(label="Agilidade!", style=discord.ButtonStyle.green)
+    button3 = discord.ui.Button(label="Presença!", style=discord.ButtonStyle.green)
+    button4 = discord.ui.Button(label="Vigor!", style=discord.ButtonStyle.green)
+    button5 = discord.ui.Button(label="Sorte!", style=discord.ButtonStyle.danger)
+    button6 = discord.ui.Button(label="Cara ou Coroa!", style=discord.ButtonStyle.grey)
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Int: '+' Dado 1: '+ str(random.randint(min,max)) + ' | Dado 2: '+ str(random.randint(min,max)))
+        
+    button.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('For: '+' Dado 1: '+ str(random.randint(min,max)) + ' | Dado 2: '+ str(random.randint(min,max)) +" | Dado 3: " + str(random.randint(min,max)))
+    
+    button1.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Agi: '+' Dado 1: '+ str(random.randint(min,max)) + ' | Dado 2: '+ str(random.randint(min,max)))
+    
+    button2.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Pre: '+' Dado 1: '+ str(random.randint(min,max)))
+    button3.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Vig: '+'Dado 1: '+ str(random.randint(min,max)) + ' | Dado 2: '+ str(random.randint(min,max)))
+        
+    button4.callback = button_callback
+    
+    async def button_callback(interaction):
+        lucky = random.randint(1,2)
+        if lucky == 1:
+            await interaction.response.send_message("Dias de luta, dias de luta: Azar")
+        if lucky== 2:           
+            await interaction.response.send_message("Sorte! É raro, mais acontece! ")
+        
+    button5.callback = button_callback
+    
+    async def button_callback(interaction):
+        coin = random.randint(1,2)
+        if coin == 1:
+            await interaction.response.send_message("Cara")
+        if coin == 2:           
+            await interaction.response.send_message("Coroa")
+       
+        
+    button6.callback = button_callback
+    
+    view = View()
+    view.add_item(button)
+    view.add_item(button1)
+    view.add_item(button2)
+    view.add_item(button3)
+    view.add_item(button4)
+    view.add_item(button5)
+    view.add_item(button6)
+    await ctx.send("Escolha seu atributo!",view=view)
+    
+@bot.command()
+async def bene1(ctx):
+    button = discord.ui.Button(label="Adestramento", style=discord.ButtonStyle.green)
+    button1 = discord.ui.Button(label="Atletismo!", style=discord.ButtonStyle.green)
+    button2 = discord.ui.Button(label="Fortitude!", style=discord.ButtonStyle.green)
+    button3 = discord.ui.Button(label="Luta!", style=discord.ButtonStyle.green)
+    button4 = discord.ui.Button(label="Reflexo!", style=discord.ButtonStyle.green)
+    button5 = discord.ui.Button(label="Sobrevivência!", style=discord.ButtonStyle.green)
+    button6 = discord.ui.Button(label="Tecnologias!", style=discord.ButtonStyle.green)
+    button7 = discord.ui.Button(label="Vontade!", style=discord.ButtonStyle.grey)
+    button8 = discord.ui.Button(label="Iniciativa!", style=discord.ButtonStyle.grey)
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Adstramento: '+' Dado 1: '+ str(random.randint(min,max)+5))
+        
+    button.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Atletismo: '+' Dado 1: '+ str(random.randint(min,max)+5) + ' | Dado 2: '+ str(random.randint(min,max)+5) +" | Dado 3: " + str(random.randint(min,max)+5))
+    
+    button1.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Fortitude: '+' Dado 1: '+ str(random.randint(min,max)+7) + ' | Dado 2: '+ str(random.randint(min,max)+7))
+    
+    button2.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Luta: '+' Dado 1: '+ str(random.randint(min,max)+5) + ' | Dado 2: '+ str(random.randint(min,max)+5) +" | Dado 3: " + str(random.randint(min,max)+5))
+    button3.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Reflexo: '+'Dado 1: '+ str(random.randint(min,max)+7) + ' | Dado 2: '+ str(random.randint(min,max)+7))
+        
+    button4.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Sobrevivência: '+'Dado 1: '+ str(random.randint(min,max)+5) + ' | Dado 2: '+ str(random.randint(min,max)+5))
+                
+    button5.callback = button_callback
+    
+    async def button_callback(interaction):
+       await interaction.response.send_message('Tecnologias: '+'Dado 1: '+ str(random.randint(min,max)+5) + ' | Dado 2: '+ str(random.randint(min,max)+5))    
+        
+    button6.callback = button_callback
+    
+    async def button_callback(interaction):
+        await interaction.response.send_message('Vontade: '+'Dado 1: '+ str(random.randint(min,max)+2))    
+        
+    button7.callback = button_callback
+    
+    async def button_callback(interaction):
+       await interaction.response.send_message('Iniciativa: '+'Dado 1: '+ str(random.randint(min,max)) + ' | Dado 2: '+ str(random.randint(min,max)))    
+        
+    button8.callback = button_callback
+    
+    view = View()
+    view.add_item(button)
+    view.add_item(button1)
+    view.add_item(button2)
+    view.add_item(button3)
+    view.add_item(button4)
+    view.add_item(button5)
+    view.add_item(button6)
+    view.add_item(button7)
+    view.add_item(button8)
+    await ctx.send("Escolha sua perícia!",view=view)
+
+# TOKEN = TOKEN_SEGURO
+bot.run('MTAzNjY2ODIwNzcxMDM1MTQwMA.Gxp2rl.8HevidfUrQGOU13WUB0ZnSswqmEqdTdIF3a9LU')
