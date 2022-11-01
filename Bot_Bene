@@ -165,4 +165,4 @@ async def bene1(ctx):
     await ctx.send("Escolha sua perícia!",view=view)
 
 # TOKEN = TOKEN_SEGURO
-bot.run('MTAzNjY2ODIwNzcxMDM1MTQwMA.Gxp2rl.8HevidfUrQGOU13WUB0ZnSswqmEqdTdIF3a9LU')
+bot.run('')
